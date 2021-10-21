@@ -1,9 +1,10 @@
-version: '3'
+version: "3"
 services:
-  go:
-    build: .
-    command: /bin/sh -c "go run main.go"
-    stdin_open: true
-    tty: true
+  app:
+    container_name: "app"
+    image: golang:latest
     volumes:
-      - .:/app
+      - ./:/code
+    tty: true
+    working_dir: /code
+    command: /bin/bash
