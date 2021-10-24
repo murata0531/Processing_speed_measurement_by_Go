@@ -1,10 +1,22 @@
-version: "3"
+version: '3'
 services:
-  app:
-    container_name: "app"
-    image: golang:latest
+  api:
+    links:
+      - mysql
+    build: 
+      context: . 
+      dockerfile: ./docker/api/Dockerfile
+    ports:
+      - "8080:8080"
     volumes:
-      - ./:/code
-    tty: true
-    working_dir: /code
-    command: /bin/bash
+      - ./src/api:/go/src/api
+  mysql:
+    build: ./docker/db
+    image: mysql:5.7
+    restart: always
+    hostname: mysql
+    ports: 
+      - "3306:3306"
+    volumes:
+      - ./docker/db/conf.d:/etc/mysql/conf.d
+      - ./log/mysql:/var/log/mysql
