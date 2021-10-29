@@ -20,7 +20,7 @@ func main() {
 
 type User struct {
     gorm.Model
-    NickName string `json:"nickName"`
+    UserName string `json:"username"`
 }
 
 func DBMigrate(db *gorm.DB) *gorm.DB {
